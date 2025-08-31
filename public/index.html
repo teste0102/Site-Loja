@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loja da Informática e Celulares</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; color:#333; background:#fff; line-height:1.6; }
+    .container { max-width:1200px; margin:0 auto; padding:0 20px; }
+    .section { padding:60px 0; }
+
+    /* Hero */
+    .hero { background:linear-gradient(135deg,#FF002D 0%, #d50025 100%); color:#fff; min-height:100vh; display:flex; align-items:center; }
+    .hero-content { position:relative; z-index:2; }
+    .brand-name { font-size:1.2rem; font-weight:600; margin-bottom:20px; opacity:.9; }
+    .hero h1 { font-size:3rem; font-weight:800; margin-bottom:20px; line-height:1.1; }
+    .subtitle { font-size:1.2rem; margin-bottom:32px; opacity:.95; }
+    .cta-button { background:#fff; color:#FF002D; padding:16px 32px; border:none; border-radius:999px; font-size:1.05rem; font-weight:800; cursor:pointer; text-decoration:none; display:inline-block; transition:transform .25s ease, box-shadow .25s ease; box-shadow:0 10px 30px rgba(0,0,0,0.2); }
+    .cta-button:hover { transform:translateY(-3px); box-shadow:0 15px 40px rgba(0,0,0,0.3); }
+
+    /* Cards */
+    .cards-section { background:#f8f9fa; }
+    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:32px; margin-top:40px; }
+    .card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,0.08); transition:transform .3s ease, box-shadow .3s ease; }
+    .card:hover { transform:translateY(-8px); box-shadow:0 30px 60px rgba(0,0,0,0.12); }
+    .card-image { width:100%; height:220px; background:linear-gradient(45deg,#FF002D,#ff6b8a); position:relative; display:flex; align-items:center; justify-content:center; color:#fff; font-size:2rem; font-weight:700; }
+    .card-image img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    .card-content { padding:24px; }
+    .card h3 { font-size:1.35rem; margin-bottom:10px; color:#FF002D; }
+    .card p { color:#666; }
+
+    /* Promo */
+    .promo-section { background:linear-gradient(135deg,#2c3e50 0%, #34495e 100%); color:#fff; text-align:center; }
+    .promo h2 { font-size:2.2rem; margin-bottom:14px; }
+    .promo p { opacity:.9; }
+
+    /* Sobre */
+    .about-section { background:#fff; }
+    .about-content { max-width:800px; margin:0 auto; text-align:center; }
+    .about-content h2 { font-size:2.2rem; margin-bottom:24px; color:#FF002D; }
+    .about-content p { font-size:1.05rem; color:#666; margin-bottom:14px; }
+
+    /* Marcas */
+    .brands-section { background:#f8f9fa; text-align:center; }
+    .brands h2 { font-size:2rem; color:#FF002D; margin-bottom:10px; }
+    .brands .subtitle { font-size:1.15rem; color:#666; }
+
+    /* Localização */
+    .map-section { background:#fff; text-align:center; }
+    .map-section h2 { font-size:2rem; color:#FF002D; margin-bottom:20px; }
+    .map-container { max-width:1000px; margin:0 auto; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.1); }
+    iframe { width:100%; height:450px; border:0; }
+
+    /* Footer */
+    .footer { background:#2c3e50; color:#fff; text-align:center; padding:40px 0; }
+    .footer p { max-width:700px; margin:0 auto; }
+
+    @media(max-width:768px){ .hero h1{font-size:2.3rem;} .container{padding:0 15px;} .card-image{height:200px;} }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="brand-name">Loja da Informática e Celulares</div>
+        <h1>Assistência técnica, upgrades e peças – com qualidade</h1>
+        <p class="subtitle">Smartphones, computadores e serviços especializados</p>
+        <a href="#" id="whatsappCta" class="cta-button">PEDIR ORÇAMENTO AGORA</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cards -->
+  <section class="section cards-section">
+    <div class="container">
+      <div class="cards-grid" id="cardsGrid">
+        <div class="card"><div class="card-image"><span>📱</span><img alt=""></div><div class="card-content"><h3>Smartphones</h3><p>Troca de tela, bateria e modelos novos.</p></div></div>
+        <div class="card"><div class="card-image"><span>🔧</span><img alt=""></div><div class="card-content"><h3>Peças e Acessórios</h3><p>Telas, carregadores e acessórios originais.</p></div></div>
+        <div class="card"><div class="card-image"><span>⚡</span><img alt=""></div><div class="card-content"><h3>Assistência Técnica</h3><p>Celular e PC em manutenção.</p></div></div>
+        <div class="card"><div class="card-image"><span>🖥️</span><img alt=""></div><div class="card-content"><h3>Computadores</h3><p>Montagem e upgrades.</p></div></div>
+        <div class="card"><div class="card-image"><span>💻</span><img alt=""></div><div class="card-content"><h3>Notebooks</h3><p>Reparos e otimização.</p></div></div>
+        <div class="card"><div class="card-image"><span>📶</span><img alt=""></div><div class="card-content"><h3>Redes e Wi-Fi</h3><p>Configuração e diagnóstico.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promo -->
+  <section class="section promo-section">
+    <div class="container">
+      <div class="promo">
+        <h2>Destaques do nosso trabalho</h2>
+        <p>Veja fotos reais de serviços e equipamentos. Fale no WhatsApp para orçamento.</p>
+        <br />
+        <a href="#" id="whatsappCta2" class="cta-button">FALAR NO WHATSAPP</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section class="section about-section">
+    <div class="container">
+      <div class="about-content">
+        <h2>Sobre a Loja</h2>
+        <p>Especialistas em <strong>celulares, computadores e assistência técnica</strong>. Trabalhamos com as principais marcas: Apple, Samsung e Motorola.</p>
+        <p>Montagem de PCs, upgrades de SSD/memória, troca de telas/baterias e diagnóstico rápido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marcas -->
+  <section class="section brands-section">
+    <div class="container">
+      <div class="brands">
+        <h2>Marcas em Destaque</h2>
+        <p class="subtitle">Apple • Samsung • Motorola</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Localização -->
+  <section class="section map-section">
+    <div class="container">
+      <h2>Localização</h2>
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps?q=Loja%20da%20Inform%C3%A1tica%20e%20celulares%2C%20R.%20China%2C%20607%20-%20Morada%20do%20Sol%2C%20Americana%20-%20SP%2C%2013470-255&output=embed" 
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <p style="margin-top:12px">
+        Ver no <a href="https://maps.app.goo.gl/nCfmSCCXZTPXDFTq7" target="_blank">Google Maps</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p><strong>Este site não é afiliado ao Facebook.</strong> Loja independente de celulares e informática. Atendimento seg–sex, 09h–18h.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    const WHATSAPP_NUMBER = '5519999486811'; // número atualizado
+
+    function openWhatsApp() {
+      const msg = encodeURIComponent('Olá! Gostaria de um orçamento.');
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, '_blank');
+    }
+    document.getElementById('whatsappCta').addEventListener('click', e => { e.preventDefault(); openWhatsApp(); });
+    document.getElementById('whatsappCta2').addEventListener('click', e => { e.preventDefault(); openWhatsApp(); });
+
+    async function api(path, opts = {}) {
+      const res = await fetch(path, { headers: { 'Content-Type': 'application/json' }, credentials: 'include', ...opts });
+      return res.json();
+    }
+    async function loadImagesIntoCards() {
+      try {
+        const out = await api('/api/images');
+        const arr = (out && out.images) ? out.images : [];
+        const cards = document.querySelectorAll('#cardsGrid .card');
+        for (let i = 0; i < cards.length; i++) {
+          const imgData = arr[i];
+          const img = cards[i].querySelector('img');
+          const emoji = cards[i].querySelector('span');
+          if (imgData) {
+            img.src = imgData.url;
+            img.alt = imgData.label || `Foto ${i+1}`;
+            emoji.style.display = 'none';
+          } else {
+            img.removeAttribute('src');
+            emoji.style.display = 'block';
+          }
+        }
+      } catch (e) { console.error('Erro ao carregar imagens:', e); }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+      document.querySelectorAll('.card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(12px)';
+        card.style.transition = 'opacity .6s ease, transform .6s ease';
+        observer.observe(card);
+      });
+    });
+    (async function init(){ await loadImagesIntoCards(); })();
+  </script>
+</body>
+</html>

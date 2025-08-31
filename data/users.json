@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "1756666058615",
+      "username": "sikavial",
+      "password": "$2a$10$qV/.tvFn/FgkFVZrbRQL..m4X3GPYSdv2xJ18RoTrfZUZ2nlTeUmS",
+      "role": "admin",
+      "createdAt": "2025-08-31T18:47:38.615Z"
+    }
+  ]
+}
