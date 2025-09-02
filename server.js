@@ -14,14 +14,16 @@ const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret_change_me';
 // Pastas
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const IMAGES_DIR = path.join(PUBLIC_DIR, 'imagens');
-const DATA_DIR = path.join(__dirname, 'data');
-const USERS_FILE = path.join(DATA_DIR, 'users.json');
 
-// Garantir estrutura de pastas/arquivos
-if (!fs.existsSync(PUBLIC_DIR)) fs.mkdirSync(PUBLIC_DIR);
-if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR);
-if (!fs.existsSync(USERS_FILE)) fs.writeFileSync(USERS_FILE, JSON.stringify({ users: [] }, null, 2));
+// >>> Diretório gravável no Azure
+const DATA_DIR =
+  process.env.DATA_DIR || path.join(process.env.HOME || '/home', 'data');
+if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+if (!fs.existsSync(USERS_FILE)) {
+  fs.writeFileSync(USERS_FILE, JSON.stringify({ users: [] }, null, 2));
+}
 
 // Helpers
 function readUsers() {
@@ -46,7 +48,11 @@ function readUsers() {
 }
 
 function writeUsers(users) {
-  fs.writeFileSync(USERS_FILE, JSON.stringify({ users }, null, 2));
+  try {
+    fs.writeFileSync(USERS_FILE, JSON.stringify({ users }, null, 2));
+  } catch (e) {
+    console.error('Erro ao salvar users.json:', e);
+  }
 }
 
 // Seed do admin
@@ -69,6 +75,7 @@ function writeUsers(users) {
   }
 })();
 
+// Middlewares
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -80,7 +87,7 @@ function setAuthCookie(res, payload) {
   res.cookie('token', token, {
     httpOnly: true,
     sameSite: 'lax',
-    secure: false // mude para true se usar HTTPS
+    secure: false // mude para true se usar HTTPS com domínio
   });
 }
 function authMiddleware(req, res, next) {
@@ -97,15 +104,25 @@ function authMiddleware(req, res, next) {
 // Rotas de autenticação
 app.post('/api/register', async (req, res) => {
   const { username, password } = req.body || {};
-  if (!username || !password) return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
-  if (String(password).length < 8) return res.status(400).json({ error: 'Senha deve ter pelo menos 8 caracteres.' });
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
+  }
+  if (String(password).length < 8) {
+    return res.status(400).json({ error: 'Senha deve ter pelo menos 8 caracteres.' });
+  }
 
   const users = readUsers();
   const exists = users.find(u => u.username.toLowerCase() === String(username).toLowerCase());
   if (exists) return res.status(409).json({ error: 'Usuário já existe.' });
 
   const hash = await bcrypt.hash(password, 10);
-  const user = { id: Date.now().toString(), username, password: hash, role: 'user', createdAt: new Date().toISOString() };
+  const user = {
+    id: Date.now().toString(),
+    username,
+    password: hash,
+    role: 'user',
+    createdAt: new Date().toISOString()
+  };
   users.push(user);
   writeUsers(users);
   setAuthCookie(res, { id: user.id, username: user.username, role: user.role });
@@ -141,6 +158,7 @@ app.get('/api/me', (req, res) => {
 
 // Listar imagens ordenadas pelo número final
 app.get('/api/images', (req, res) => {
+  if (!fs.existsSync(IMAGES_DIR)) return res.json({ images: [] });
   const files = fs.readdirSync(IMAGES_DIR)
     .filter(f => /\.(jpg|jpeg|png|webp|gif)$/i.test(f));
 
@@ -156,4 +174,5 @@ app.get('/api/images', (req, res) => {
   res.json({ images: parsed });
 });
 
-app.listen(PORT, () => console.log(`> Servidor em http://localhost:${PORT}`));
+// Start
+app.listen(PORT, '0.0.0.0', () => console.log(`> Servidor em http://localhost:${PORT}`));
